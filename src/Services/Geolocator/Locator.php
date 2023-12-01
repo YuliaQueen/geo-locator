@@ -1,7 +1,8 @@
 <?php
 
-namespace Qween\Location\Services;
+namespace Qween\Location\Services\Geolocator;
 
+use GuzzleHttp\Client;
 use InvalidArgumentException;
 
 class Locator implements LocatorInterface
@@ -17,23 +18,15 @@ class Locator implements LocatorInterface
 
         $url = 'https://api.ipgeolocation.io/ipgeo?' . http_build_query(
                 [
-                    'apiKey' => 'a7b7a7d985d1426eac96e6294a002905',
-                    'ip'     => $ip
+                    'apiKey' => $_ENV['IP_GEOLOCATOR_API_KEY'],
+                    'ip' => $ip
                 ]
             );
 
-        $cURL = curl_init();
+        $client = new Client();
+        $cURL = $client->get($url);
 
-        curl_setopt($cURL, CURLOPT_URL, $url);
-        curl_setopt($cURL, CURLOPT_HTTPGET, true);
-        curl_setopt($cURL, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($cURL, CURLOPT_HTTPHEADER, array(
-            'Content-Type: application/json',
-            'Accept: application/json',
-            'User-Agent: ' . $_SERVER['HTTP_USER_AGENT']
-        ));
-
-        $response = json_decode(curl_exec($cURL), true);
+        $response = json_decode($cURL->getBody()->getContents(), true);
 
         $data = array_map(function ($value) {
             return $value !== '-' ? $value : null;
