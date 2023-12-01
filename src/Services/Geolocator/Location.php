@@ -1,6 +1,6 @@
 <?php
 
-namespace Qween\Location\Services;
+namespace Qween\Location\Services\Geolocator;
 
 class Location
 {
