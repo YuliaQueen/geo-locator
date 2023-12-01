@@ -1,10 +1,12 @@
 <?php
 
+use Doctrine\DBAL\Connection;
 use League\Container\Argument\Literal\ArrayArgument;
 use League\Container\Argument\Literal\StringArgument;
 use League\Container\Container;
 use League\Container\ReflectionContainer;
 use Qween\Location\Controller\AbstractController;
+use Qween\Location\Dbal\ConnectionFactory;
 use Qween\Location\Event\EventDispatcher;
 use Qween\Location\Http\Kernel;
 use Qween\Location\Http\Middleware\ExtractRouteInfo;
@@ -14,13 +16,18 @@ use Qween\Location\Http\Middleware\RouterDispatch;
 use Qween\Location\Routing\Router;
 use Qween\Location\Routing\RouterInterface;
 use Qween\Location\Template\TwigFactory;
+use Symfony\Component\Dotenv\Dotenv;
 use Twig\Environment;
+
+$dotenv = new Dotenv();
+$dotenv->load(dirname(__DIR__) . '/.env');
 
 // Application parameters
 $basePath = dirname(__DIR__);
 $routes = include BASE_PATH . '/routes/web.php';
 $appEnv = $_ENV['APP_ENV'] ?? 'dev';
 $viewsPath = BASE_PATH . '/views';
+$databaseUrl = $_ENV['DATABASE_URL'] ?? 'pdo-sqlite:///location.db';
 
 // Application services
 $container = new Container();
@@ -64,5 +71,13 @@ $container->addShared('twig', function () use ($container): Environment {
 // Controller services
 $container->inflector(AbstractController::class)
     ->invokeMethod('setContainer', [$container]);
+
+// Database services
+$container->add(ConnectionFactory::class)
+    ->addArgument(new StringArgument($databaseUrl));
+
+$container->addShared(\Doctrine\DBAL\Connection::class, function () use ($container): Connection {
+    return $container->get(ConnectionFactory::class)->create();
+});
 
 return $container;

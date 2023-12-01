@@ -3,3 +3,7 @@
 /vendor/
 
 .idea
+
+.env
+
+api/location.db
