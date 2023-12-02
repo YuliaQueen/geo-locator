@@ -5,10 +5,14 @@ use League\Container\Argument\Literal\ArrayArgument;
 use League\Container\Argument\Literal\StringArgument;
 use League\Container\Container;
 use League\Container\ReflectionContainer;
+use Qween\Location\Console\Application;
+use Qween\Location\Console\CommandPrefix;
+use Qween\Location\Console\Commands\MigrateCommand;
 use Qween\Location\Controller\AbstractController;
 use Qween\Location\Dbal\ConnectionFactory;
 use Qween\Location\Event\EventDispatcher;
 use Qween\Location\Http\Kernel;
+use Qween\Location\Console\Kernel as ConsoleKernel;
 use Qween\Location\Http\Middleware\ExtractRouteInfo;
 use Qween\Location\Http\Middleware\RequestHandler;
 use Qween\Location\Http\Middleware\RequestHandlerInterface;
@@ -79,5 +83,17 @@ $container->add(ConnectionFactory::class)
 $container->addShared(\Doctrine\DBAL\Connection::class, function () use ($container): Connection {
     return $container->get(ConnectionFactory::class)->create();
 });
+
+// Console services
+$container->add(Application::class)
+    ->addArgument($container);
+
+$container->add(ConsoleKernel::class)
+    ->addArguments([
+        $container,
+        Application::class
+    ]);
+
+$container->add('console-command-namespace', new StringArgument('Qween\\Location\\Console\\Commands\\'));
 
 return $container;
