@@ -80,7 +80,7 @@ $container->inflector(AbstractController::class)
 $container->add(ConnectionFactory::class)
     ->addArgument(new StringArgument($databaseUrl));
 
-$container->addShared(\Doctrine\DBAL\Connection::class, function () use ($container): Connection {
+$container->addShared(Connection::class, function () use ($container): Connection {
     return $container->get(ConnectionFactory::class)->create();
 });
 
@@ -93,6 +93,9 @@ $container->add(ConsoleKernel::class)
         $container,
         Application::class
     ]);
+
+$container->add(CommandPrefix::CONSOLE->value . 'migrate', MigrateCommand::class)
+    ->addArgument(Connection::class);
 
 $container->add('console-command-namespace', new StringArgument('Qween\\Location\\Console\\Commands\\'));
 
