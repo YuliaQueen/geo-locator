@@ -95,7 +95,8 @@ $container->add(ConsoleKernel::class)
     ]);
 
 $container->add(CommandPrefix::CONSOLE->value . 'migrate', MigrateCommand::class)
-    ->addArgument(Connection::class);
+    ->addArgument(Connection::class)
+    ->addArgument(new StringArgument(BASE_PATH . '/database/migrations'));
 
 $container->add('console-command-namespace', new StringArgument('Qween\\Location\\Console\\Commands\\'));
 
