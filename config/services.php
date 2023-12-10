@@ -1,10 +1,14 @@
 <?php
 
 use Doctrine\DBAL\Connection;
+use GuzzleHttp\Client;
 use League\Container\Argument\Literal\ArrayArgument;
 use League\Container\Argument\Literal\StringArgument;
 use League\Container\Container;
 use League\Container\ReflectionContainer;
+use Psr\Http\Client\ClientInterface;
+use Qween\Location\Component\Geolocator\Locator;
+use Qween\Location\Component\Geolocator\LocatorInterface;
 use Qween\Location\Console\Application;
 use Qween\Location\Console\CommandPrefix;
 use Qween\Location\Console\Commands\MigrateCommand;
@@ -39,6 +43,11 @@ $container->delegate(new ReflectionContainer(true));
 
 $container->add('base-path', new StringArgument($basePath));
 $container->add('APP_ENV', new StringArgument($appEnv));
+
+// HTTP services
+$container->add(ClientInterface::class, Client::class);
+$container->add(LocatorInterface::class, Locator::class)
+    ->addArgument(ClientInterface::class);
 
 // Routing services
 $container->add(RouterInterface::class, Router::class);

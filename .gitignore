@@ -1,9 +1,9 @@
 .vercel
-
+node_modules
 /vendor/
-
 .idea
-
 .env
-
-api/location.db
+machinet.conf
+vercel.json!/api/location.db
+/api/location.db
+/vercel.json

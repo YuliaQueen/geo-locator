@@ -2,10 +2,16 @@
 
 namespace Qween\Location\Component\Geolocator;
 
-use GuzzleHttp\Client;
+use Psr\Http\Client\ClientInterface;
 
 class Locator implements LocatorInterface
 {
+    public function __construct(
+        private ClientInterface $client
+    )
+    {
+    }
+
     public function locate(IpInterface $ip): ?Location
     {
         $url = 'https://api.ipgeolocation.io/ipgeo?' . http_build_query(
@@ -15,10 +21,9 @@ class Locator implements LocatorInterface
                 ]
             );
 
-        $client = new Client();
-        $cURL = $client->get($url);
+        $response = $this->client->get($url);
 
-        $response = json_decode($cURL->getBody()->getContents(), true);
+        $response = json_decode($response->getBody()->getContents(), true);
 
         $data = array_map(fn($item) => $item === '-' ? null : $item, $response);
 
