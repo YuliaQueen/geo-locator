@@ -1,6 +1,6 @@
 <?php
 
-namespace Qween\Location\Services\Geolocator;
+namespace Qween\Location\Component\Geolocator;
 
 use GuzzleHttp\Client;
 use InvalidArgumentException;
