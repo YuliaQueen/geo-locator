@@ -5,7 +5,7 @@ namespace Qween\Location\Controller;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use Qween\Location\Http\Response;
-use Qween\Location\Services\Geolocator\Locator;
+use Qween\Location\Component\Geolocator\Locator;
 
 class IndexController extends AbstractController
 {
