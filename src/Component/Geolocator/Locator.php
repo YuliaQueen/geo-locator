@@ -3,23 +3,15 @@
 namespace Qween\Location\Component\Geolocator;
 
 use GuzzleHttp\Client;
-use InvalidArgumentException;
 
 class Locator implements LocatorInterface
 {
-    public function locate(string $ip): ?Location
+    public function locate(IpInterface $ip): ?Location
     {
-        if (empty($ip)) {
-            throw new InvalidArgumentException('ip cannot be empty');
-        }
-        if (filter_var($ip, FILTER_VALIDATE_IP) === false) {
-            throw new InvalidArgumentException('ip is invalid');
-        }
-
         $url = 'https://api.ipgeolocation.io/ipgeo?' . http_build_query(
                 [
                     'apiKey' => $_ENV['IP_GEOLOCATOR_API_KEY'],
-                    'ip'     => $ip
+                    'ip'     => $ip->getValue()
                 ]
             );
 
@@ -28,11 +20,9 @@ class Locator implements LocatorInterface
 
         $response = json_decode($cURL->getBody()->getContents(), true);
 
-        $data = array_map(function ($value) {
-            return $value !== '-' ? $value : null;
-        }, $response);
+        $data = array_map(fn($item) => $item === '-' ? null : $item, $response);
 
-        if (!isset($data['country_name'])) {
+        if (empty($data['country_name'])) {
             return null;
         }
 

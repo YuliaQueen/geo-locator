@@ -4,6 +4,7 @@ namespace Qween\Location\Controller;
 
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
+use Qween\Location\Component\Geolocator\Ip;
 use Qween\Location\Http\Response;
 use Qween\Location\Component\Geolocator\Locator;
 
@@ -19,7 +20,7 @@ class IndexController extends AbstractController
     {
         $locator = new Locator();
 
-        $ip = $_SERVER['HTTP_CLIENT_IP'] ?? $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'];
+        $ip = new Ip($_SERVER['HTTP_CLIENT_IP'] ?? $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR']);
 
         $location = $locator->locate($ip);
         return $this->render('home', [
