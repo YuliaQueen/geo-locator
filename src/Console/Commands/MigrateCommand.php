@@ -72,7 +72,7 @@ class MigrateCommand implements CommandInterface
 
         $table->addColumn('id', Types::INTEGER, [
             'autoincrement' => true,
-            'unsigned' => true
+            'unsigned'      => true
         ]);
 
         $table->addColumn('migration', Types::STRING, [

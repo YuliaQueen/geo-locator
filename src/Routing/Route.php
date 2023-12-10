@@ -5,9 +5,9 @@ namespace Qween\Location\Routing;
 class Route
 {
     /**
-     * @param string $uri
+     * @param string         $uri
      * @param array|callable $handler
-     * @param array $middleware
+     * @param array          $middleware
      * @return array
      */
     public static function get(string $uri, array|callable $handler, array $middleware = []): array
@@ -16,9 +16,9 @@ class Route
     }
 
     /**
-     * @param string $uri
+     * @param string         $uri
      * @param array|callable $handler
-     * @param array $middleware
+     * @param array          $middleware
      * @return array
      */
     public static function post(string $uri, array|callable $handler, array $middleware = []): array

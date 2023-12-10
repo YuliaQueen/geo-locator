@@ -14,8 +14,8 @@ abstract class AbstractController
     protected Request $request;
 
     /**
-     * @param string $view
-     * @param array $params
+     * @param string        $view
+     * @param array         $params
      * @param Response|null $response
      * @return Response
      * @throws ContainerExceptionInterface

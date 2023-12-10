@@ -5,7 +5,7 @@ namespace Qween\Location\Services\Geolocator;
 class Location
 {
     public function __construct(
-        private string $country,
+        private string  $country,
         private ?string $region,
         private ?string $city
     )

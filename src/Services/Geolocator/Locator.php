@@ -19,7 +19,7 @@ class Locator implements LocatorInterface
         $url = 'https://api.ipgeolocation.io/ipgeo?' . http_build_query(
                 [
                     'apiKey' => $_ENV['IP_GEOLOCATOR_API_KEY'],
-                    'ip' => $ip
+                    'ip'     => $ip
                 ]
             );
 

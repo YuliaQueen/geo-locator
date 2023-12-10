@@ -11,7 +11,7 @@ use Qween\Location\Http\Request;
 class Router implements RouterInterface
 {
     /**
-     * @param Request $request
+     * @param Request            $request
      * @param ContainerInterface $container
      * @return array
      * @throws ContainerExceptionInterface

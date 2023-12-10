@@ -23,11 +23,11 @@ class IndexController extends AbstractController
 
         $location = $locator->locate($ip);
         return $this->render('home', [
-            'title' => 'Welcome to HOME',
-            'ip' => $ip,
-            'city' => $location->getCity(),
+            'title'   => 'Welcome to HOME',
+            'ip'      => $ip,
+            'city'    => $location->getCity(),
             'country' => $location->getCountry(),
-            'region' => $location->getRegion(),
+            'region'  => $location->getRegion()
         ]);
     }
 }

@@ -5,12 +5,12 @@ namespace Qween\Location\Http;
 class Response
 {
     const CODE_REDIRECT = 302;
-    const CODE_SUCCESS = 200;
+    const CODE_SUCCESS  = 200;
 
     /**
      * @param string $content
-     * @param int $statusCode
-     * @param array $headers
+     * @param int    $statusCode
+     * @param array  $headers
      */
     public function __construct(
         private string $content = '',
@@ -53,7 +53,7 @@ class Response
 
     /**
      * @param string $key
-     * @param int $value
+     * @param int    $value
      * @return void
      */
     public function setHeader(string $key, int $value): void
