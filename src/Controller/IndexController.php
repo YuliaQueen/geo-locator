@@ -25,7 +25,7 @@ class IndexController extends AbstractController
         $location = $locator->locate($ip);
         return $this->render('home', [
             'title'   => 'Welcome to HOME',
-            'ip'      => $ip,
+            'ip'      => $ip->getValue(),
             'city'    => $location->getCity(),
             'country' => $location->getCountry(),
             'region'  => $location->getRegion()
