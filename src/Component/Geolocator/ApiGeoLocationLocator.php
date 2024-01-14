@@ -2,9 +2,10 @@
 
 namespace Qween\Location\Component\Geolocator;
 
+use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Client\ClientInterface;
 
-class Locator implements LocatorInterface
+class ApiGeoLocationLocator implements LocatorInterface
 {
     public function __construct(
         private ClientInterface $client
@@ -12,11 +13,14 @@ class Locator implements LocatorInterface
     {
     }
 
+    /**
+     * @throws GuzzleException
+     */
     public function locate(IpInterface $ip): ?Location
     {
         $url = 'https://api.ipgeolocation.io/ipgeo?' . http_build_query(
                 [
-                    'apiKey' => $_ENV['IP_GEOLOCATOR_API_KEY'],
+                    'apiKey' => $_ENV['IP_GEOLOCATION_API_KEY'],
                     'ip'     => $ip->getValue()
                 ]
             );

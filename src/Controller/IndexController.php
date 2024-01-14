@@ -12,7 +12,7 @@ class IndexController extends AbstractController
 {
 
     public function __construct(
-        private LocationService $locationService
+        private readonly LocationService $locationService
     )
     {
     }

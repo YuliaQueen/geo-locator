@@ -7,16 +7,16 @@ use League\Container\Argument\Literal\StringArgument;
 use League\Container\Container;
 use League\Container\ReflectionContainer;
 use Psr\Http\Client\ClientInterface;
-use Qween\Location\Component\Geolocator\Locator;
+use Qween\Location\Component\Geolocator\ApiInfoLocator;
 use Qween\Location\Component\Geolocator\LocatorInterface;
 use Qween\Location\Console\Application;
 use Qween\Location\Console\CommandPrefix;
 use Qween\Location\Console\Commands\MigrateCommand;
+use Qween\Location\Console\Kernel as ConsoleKernel;
 use Qween\Location\Controller\AbstractController;
 use Qween\Location\Dbal\ConnectionFactory;
 use Qween\Location\Event\EventDispatcher;
 use Qween\Location\Http\Kernel;
-use Qween\Location\Console\Kernel as ConsoleKernel;
 use Qween\Location\Http\Middleware\ExtractRouteInfo;
 use Qween\Location\Http\Middleware\RequestHandler;
 use Qween\Location\Http\Middleware\RequestHandlerInterface;
@@ -46,7 +46,7 @@ $container->add('APP_ENV', new StringArgument($appEnv));
 
 // HTTP services
 $container->add(ClientInterface::class, Client::class);
-$container->add(LocatorInterface::class, Locator::class)
+$container->add(LocatorInterface::class, ApiInfoLocator::class)
     ->addArgument(ClientInterface::class);
 
 // Routing services
