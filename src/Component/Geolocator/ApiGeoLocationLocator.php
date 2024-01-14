@@ -2,15 +2,17 @@
 
 namespace Qween\Location\Component\Geolocator;
 
+use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Client\ClientInterface;
 
 class ApiGeoLocationLocator implements LocatorInterface
 {
-    public function __construct(
-        private ClientInterface $client
-    )
+    private ClientInterface $client;
+
+    public function __construct()
     {
+        $this->client = new Client();
     }
 
     /**

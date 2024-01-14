@@ -4,17 +4,20 @@ namespace Qween\Location\Controller;
 
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
+use Qween\Location\Component\Geolocator\ApiGeoLocationLocator;
+use Qween\Location\Component\Geolocator\ApiInfoLocator;
+use Qween\Location\Component\Geolocator\ChainLocator;
 use Qween\Location\Component\Geolocator\Ip;
+use Qween\Location\Component\Geolocator\LocatorInterface;
 use Qween\Location\Http\Response;
-use Qween\Location\Service\LocationService;
 
 class IndexController extends AbstractController
 {
+    private LocatorInterface $locationService;
 
-    public function __construct(
-        private readonly LocationService $locationService
-    )
+    public function __construct()
     {
+        $this->locationService = new ChainLocator(new ApiInfoLocator(), new ApiGeoLocationLocator());
     }
 
     /**
