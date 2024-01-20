@@ -21,7 +21,8 @@
         "psr/event-dispatcher": "^1.0",
         "twig/twig": "^3.8",
         "ext-mbstring": "*",
-        "doctrine/dbal": "^3.7"
+        "doctrine/dbal": "^3.7",
+        "monolog/monolog": "^3.5"
     },
     "require-dev": {
         "symfony/var-dumper": "^7.0",
