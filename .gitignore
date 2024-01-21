@@ -8,3 +8,4 @@ vercel.json!/api/location.db
 /api/location.db
 /vercel.json
 /.phpunit.result.cache
+/runtime/

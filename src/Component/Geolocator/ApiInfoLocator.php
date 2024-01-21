@@ -38,6 +38,6 @@ class ApiInfoLocator implements LocatorInterface
             return null;
         }
 
-        return new Location($data['country'], $data['region'], $data['city']);
+        return new Location($data['country'], $data['region'], $data['city'], $ipValue);
     }
 }

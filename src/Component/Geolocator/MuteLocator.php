@@ -26,7 +26,7 @@ class MuteLocator implements LocatorInterface
             return $this->next->locate($ip);
         } catch (\Exception $e) {
             $this->handler->handle($e);
-            return null;
+            return new Location('unknown', 'unknown', 'unknown', $ip->getValue());
         }
     }
 }

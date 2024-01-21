@@ -7,7 +7,8 @@ class Location
     public function __construct(
         private string  $country,
         private ?string $region,
-        private ?string $city
+        private ?string $city,
+        private ?string $ip
     )
     {
     }
@@ -25,5 +26,10 @@ class Location
     public function getCity(): ?string
     {
         return $this->city;
+    }
+
+    public function getIp(): ?string
+    {
+        return $this->ip;
     }
 }

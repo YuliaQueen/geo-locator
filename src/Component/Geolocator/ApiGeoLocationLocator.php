@@ -37,6 +37,6 @@ class ApiGeoLocationLocator implements LocatorInterface
             return null;
         }
 
-        return new Location($data['country_name'], $data['state_prov'], $data['city']);
+        return new Location($data['country_name'], $data['state_prov'], $data['city'], $ip->getValue());
     }
 }

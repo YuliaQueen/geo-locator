@@ -2,6 +2,7 @@
 
 namespace Qween\Location\Component\Geolocator;
 
+use Monolog\Handler\BrowserConsoleHandler;
 use Psr\Log\LoggerInterface;
 
 class ErrorHandler
@@ -17,6 +18,7 @@ class ErrorHandler
 
     public function handle(\Exception $e)
     {
+        $this->logger->pushHandler(new BrowserConsoleHandler());
         $this->logger->error($e->getMessage());
     }
 }
